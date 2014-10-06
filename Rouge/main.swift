@@ -34,22 +34,50 @@ func readConfig() -> String {
 func addDependency(url: String) {
     println("adding \(url) as a dependency")
     var config = readConfig()
-    config = config.stringByAppendingString("\n \(url)")
+    config = config.stringByAppendingString("\(url)\n")
+    var error: NSError?
+    config.writeToFile("/Users/austin/Desktop/rouge", atomically: true, encoding: NSUTF8StringEncoding, error: &error)
+    if let e = error {
+        println(e.localizedDescription)
+    }
 }
 
 func removeDependency(url: String) {
     println("removing \(url) as a dependency")
-    let config = readConfig()
+    var config = readConfig()
+    var error: NSError?
     var array = config.componentsSeparatedByString("\n") as Array<String>
     array = array.filter{$0 != url}
+    config = "\n".join(array)
+    config.writeToFile("/Users/austin/Desktop/rouge", atomically: true, encoding: NSUTF8StringEncoding, error: &error)
+    if let e = error {
+        println(e.localizedDescription)
+    }
 }
 
 func install() {
     println("installing dependencies")
-    // Either use libgit or NSTask to use git to pull download url and stuff.
+    let config = readConfig()
+    var array = config.componentsSeparatedByString("\n") as Array<String>
+    
+    for s in array {
+        let task = NSTask()
+        task.launchPath = "/usr/bin/git"
+        task.arguments = ["clone", s]
+        
+        let pipe = NSPipe()
+        task.standardOutput = pipe
+        
+        let file = pipe.fileHandleForReading
+        task.launch()
+        
+        let data = file.readDataToEndOfFile()
+        let string = NSString(data: data, encoding: NSUTF8StringEncoding)
+        println(string)
+    }
 }
 
-if Process.arguments.count > 3 {
+if Process.arguments.count >= 2 {
     switch Process.arguments[1] {
     case "add":
        addDependency(Process.arguments[2])
