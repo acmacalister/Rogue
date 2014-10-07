@@ -65,9 +65,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D909C12E19DF045100E94409 /* Rouge */ = {
+		D909C12E19DF045100E94409 /* rouge */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D909C13619DF045100E94409 /* Build configuration list for PBXNativeTarget "Rouge" */;
+			buildConfigurationList = D909C13619DF045100E94409 /* Build configuration list for PBXNativeTarget "rouge" */;
 			buildPhases = (
 				D909C12B19DF045100E94409 /* Sources */,
 				D909C12C19DF045100E94409 /* Frameworks */,
@@ -77,7 +77,7 @@
 			);
 			dependencies = (
 			);
-			name = Rouge;
+			name = rouge;
 			productName = Rouge;
 			productReference = D909C12F19DF045100E94409 /* Rouge */;
 			productType = "com.apple.product-type.tool";
@@ -108,7 +108,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D909C12E19DF045100E94409 /* Rouge */,
+				D909C12E19DF045100E94409 /* rouge */,
 			);
 		};
 /* End PBXProject section */
@@ -161,6 +161,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -196,6 +197,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -226,7 +228,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D909C13619DF045100E94409 /* Build configuration list for PBXNativeTarget "Rouge" */ = {
+		D909C13619DF045100E94409 /* Build configuration list for PBXNativeTarget "rouge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D909C13719DF045100E94409 /* Debug */,
