@@ -8,83 +8,187 @@
 
 import Foundation
 
+let fileName = "rouge"
+
 func printHelpMenu() {
-    println("Rouge Package Manager   - 0.0.1")
-    println("add <url/tag/branch>    - Adds dependency to project.")
-    println("remove <url/tag/branch> - Removes dependency from project.")
-    println("install                 - installs added dependencies.")
+    println("Rouge Package Manager    - 0.0.1")
+    println("add url <tag/branch>     - Adds a framework to project.")
+    println("remove url <tag/branch>  - Removes a framework from project.")
+    println("list                     - List the current frameworks")
+    println("install                  - Installs the added frameworks.")
 }
 
-func readConfig() -> String {
+//reads the config from disk in the current directory
+func readConfig() -> (text: String,error: NSError?) {
     let fileManager = NSFileManager.defaultManager()
     var error: NSError?
-    let config = NSString(contentsOfFile: "/Users/austin/Desktop/rouge", encoding: NSUTF8StringEncoding, error: &error)
+    let config = NSString(contentsOfFile: fileName, encoding: NSUTF8StringEncoding, error: &error)
     if let e  = error {
         println(e.localizedDescription)
-        return ""
+        return ("", e)
     }
     
     if let conf = config {
-        return conf
+        return (conf, nil)
     }
-    println("config is blank.")
-    return ""
+    return ("", NSError(domain: "Rouge", code: -2, userInfo: [NSLocalizedDescriptionKey: "the config is blank."]))
 }
 
-func addDependency(url: String) {
-    println("adding \(url) as a dependency")
+//adds a framework to the project
+func addDependency(url: String, branch: String) {
+    removeDependency(url, branch)
     var config = readConfig()
-    config = config.stringByAppendingString("\(url)\n")
+    if config.error != nil {
+        return
+    }
+    if config.text.rangeOfString(url) == nil {
+        var appendText = url
+        if countElements(branch) > 0 {
+            appendText += ",\(branch)"
+        }
+        var configText = config.text.stringByAppendingString("\(appendText)\n")
+        var error: NSError?
+        configText.writeToFile(fileName, atomically: true, encoding: NSUTF8StringEncoding, error: &error)
+        if let e = error {
+            println(e.localizedDescription)
+        }
+    }
+}
+
+//removes a framework from the project
+func removeDependency(url: String, branch: String) {
+    var config = readConfig()
+    if config.error != nil {
+        return
+    }
     var error: NSError?
-    config.writeToFile("/Users/austin/Desktop/rouge", atomically: true, encoding: NSUTF8StringEncoding, error: &error)
+    var array = config.text.componentsSeparatedByString("\n") as Array<String>
+    array = array.filter{$0 != url && !$0.hasPrefix(url)}
+    var configText = "\n".join(array)
+    configText.writeToFile(fileName, atomically: true, encoding: NSUTF8StringEncoding, error: &error)
     if let e = error {
         println(e.localizedDescription)
     }
 }
 
-func removeDependency(url: String) {
-    println("removing \(url) as a dependency")
-    var config = readConfig()
-    var error: NSError?
-    var array = config.componentsSeparatedByString("\n") as Array<String>
-    array = array.filter{$0 != url}
-    config = "\n".join(array)
-    config.writeToFile("/Users/austin/Desktop/rouge", atomically: true, encoding: NSUTF8StringEncoding, error: &error)
-    if let e = error {
-        println(e.localizedDescription)
+//finds git on disk
+func findGit() -> String? {
+    var env = NSProcessInfo.processInfo().environment as NSDictionary
+    let path = env.objectForKey("PATH") as String
+    let array = path.componentsSeparatedByString(":")
+    let fileManager = NSFileManager.defaultManager()
+    var location: String?
+    for possiblePath in array {
+        let filePath = "\(possiblePath)/git"
+        if fileManager.fileExistsAtPath(filePath) {
+            if location == nil && filePath.hasPrefix("Applications") {
+                location = filePath //we hold out for a better one
+            } else {
+                location = filePath
+                break
+            }
+        }
     }
+    return location
 }
-
-func install() {
-    println("installing dependencies")
-    let config = readConfig()
-    var array = config.componentsSeparatedByString("\n") as Array<String>
+//runs the get task of your selection
+func runGitTask(gitPath: String,args: Array<String>) {
+    let task = NSTask()
+    task.launchPath = gitPath
+    task.arguments = args
     
-    for s in array {
-        let task = NSTask()
-        task.launchPath = "/usr/bin/git"
-        task.arguments = ["clone", s]
+    let pipe = NSPipe()
+    task.standardOutput = pipe
+    
+    let file = pipe.fileHandleForReading
+    task.launch()
+    
+    let data = file.readDataToEndOfFile()
+    let str = NSString(data: data, encoding: NSUTF8StringEncoding)
+    if let s = str {
+        if s.length > 0 {
+            println("\(s)")
+        }
+    }
+}
+//does the git clones and creates the workspace
+func install() {
+    println("installing frameworks")
+    let config = readConfig()
+    if config.error != nil {
+        return
+    }
+    let fileManager = NSFileManager.defaultManager()
+    let libPath = "libs"
+    if !fileManager.fileExistsAtPath(libPath) {
+        fileManager.createDirectoryAtPath(libPath, withIntermediateDirectories: false, attributes: nil, error: nil)
+    }
+    fileManager.changeCurrentDirectoryPath(libPath)
+    var array = config.text.componentsSeparatedByString("\n") as Array<String>
+    let git = findGit()
+    if let gitPath = git {
+        var collect = Array<String>()
+        for s in array {
+            if s != "" {
+                var split = s.componentsSeparatedByString(",")
+                var branch = "master"
+                let gitUrl = split[0]
+                if split.count > 1 {
+                    branch = split[1]
+                }
+                let name = gitUrl.lastPathComponent
+                collect.append(name)
+                if fileManager.fileExistsAtPath(name) {
+                    fileManager.changeCurrentDirectoryPath(name)
+                    runGitTask(gitPath, ["pull","origin",branch])
+                    fileManager.changeCurrentDirectoryPath("..")
+                } else {
+                    runGitTask(gitPath, ["clone", gitUrl, "-b",branch])
+                }
+            }
+        }
+        let enumerator = fileManager.enumeratorAtURL(NSURL(fileURLWithPath: ".")!, includingPropertiesForKeys: nil,
+            options: NSDirectoryEnumerationOptions.SkipsHiddenFiles|NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, errorHandler: nil)
+        let array = enumerator?.allObjects
+        for file in array! {
+            if let fileUrl = file as? NSURL {
+                let name = fileUrl.lastPathComponent
+                if find(collect, name) == nil {
+                    fileManager.removeItemAtURL(fileUrl, error: nil)
+                }
+            }
+        }
         
-        let pipe = NSPipe()
-        task.standardOutput = pipe
-        
-        let file = pipe.fileHandleForReading
-        task.launch()
-        
-        let data = file.readDataToEndOfFile()
-        let string = NSString(data: data, encoding: NSUTF8StringEncoding)
-        println(string)
+    } else {
+        println("git does not appear to be installed")
+    }
+}
+
+func list() {
+    var config = readConfig()
+    if config.error != nil {
+        return
+    }
+    var array = config.text.componentsSeparatedByString("\n")
+    for repo in array {
+        println("\(repo)")
     }
 }
 
 if Process.arguments.count >= 2 {
+    var branch = ""
+    if Process.arguments.count >= 4 {
+        branch = Process.arguments[3]
+    }
     switch Process.arguments[1] {
     case "add":
-       addDependency(Process.arguments[2])
+       addDependency(Process.arguments[2],branch)
     case "remove":
-        removeDependency(Process.arguments[2])
+        removeDependency(Process.arguments[2],branch)
     case "install":
         install()
+    case "list":
+        list()
     default:
         printHelpMenu()
     }
