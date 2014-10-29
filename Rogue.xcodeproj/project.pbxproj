@@ -23,7 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D909C12F19DF045100E94409 /* Rouge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Rouge; sourceTree = BUILT_PRODUCTS_DIR; };
+		D909C12F19DF045100E94409 /* Rouge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = Rouge; path = rouge; sourceTree = BUILT_PRODUCTS_DIR; };
 		D909C13219DF045100E94409 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,7 +41,7 @@
 		D909C12619DF045100E94409 = {
 			isa = PBXGroup;
 			children = (
-				D909C13119DF045100E94409 /* Rouge */,
+				D909C13119DF045100E94409 /* Rogue */,
 				D909C13019DF045100E94409 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,20 +54,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D909C13119DF045100E94409 /* Rouge */ = {
+		D909C13119DF045100E94409 /* Rogue */ = {
 			isa = PBXGroup;
 			children = (
 				D909C13219DF045100E94409 /* main.swift */,
 			);
+			name = Rogue;
 			path = Rouge;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D909C12E19DF045100E94409 /* rouge */ = {
+		D909C12E19DF045100E94409 /* rogue */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D909C13619DF045100E94409 /* Build configuration list for PBXNativeTarget "rouge" */;
+			buildConfigurationList = D909C13619DF045100E94409 /* Build configuration list for PBXNativeTarget "rogue" */;
 			buildPhases = (
 				D909C12B19DF045100E94409 /* Sources */,
 				D909C12C19DF045100E94409 /* Frameworks */,
@@ -77,7 +78,7 @@
 			);
 			dependencies = (
 			);
-			name = rouge;
+			name = rogue;
 			productName = Rouge;
 			productReference = D909C12F19DF045100E94409 /* Rouge */;
 			productType = "com.apple.product-type.tool";
@@ -96,7 +97,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D909C12A19DF045100E94409 /* Build configuration list for PBXProject "Rouge" */;
+			buildConfigurationList = D909C12A19DF045100E94409 /* Build configuration list for PBXProject "Rogue" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -108,7 +109,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D909C12E19DF045100E94409 /* rouge */,
+				D909C12E19DF045100E94409 /* rogue */,
 			);
 		};
 /* End PBXProject section */
@@ -219,7 +220,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D909C12A19DF045100E94409 /* Build configuration list for PBXProject "Rouge" */ = {
+		D909C12A19DF045100E94409 /* Build configuration list for PBXProject "Rogue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D909C13419DF045100E94409 /* Debug */,
@@ -228,7 +229,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D909C13619DF045100E94409 /* Build configuration list for PBXNativeTarget "rouge" */ = {
+		D909C13619DF045100E94409 /* Build configuration list for PBXNativeTarget "rogue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D909C13719DF045100E94409 /* Debug */,

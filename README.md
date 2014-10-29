@@ -1,6 +1,6 @@
-# Rouge
+# Rogue
 
-Framework Manager for Swift projects in Swift. The reason we chose the name Rouge is twofold. The first and most important is we are going rouge until the Cocoapods team is able to bring support for Swift libraries. The second is Rouge is a X-Men with the power to absorb others' skills and abilities, much like open source projects. 
+Framework Manager for Swift projects in Swift. The reason we chose the name rogue is twofold. The first and most important is we are going rogue until the Cocoapods team is able to bring support for Swift libraries. The second is Rogue is a X-Men with the power to absorb others' skills and abilities, much like open source projects.
 
 ## Features
 
@@ -11,40 +11,40 @@ Framework Manager for Swift projects in Swift. The reason we chose the name Roug
 
 ## Installation
 
-Either clone down the project and add the binary to your path or download one of the prebuilt binaries under the Github releases. 
+Either clone down the project and add the binary to your path or download one of the prebuilt binaries under the Github releases.
 
 ### Usage
 
-Rouge is pretty simple in how it works. First create a file name `rouge`. This can be accomplished by running:
+Rogue is pretty simple in how it works. First create a file name `rogue`. This can be accomplished by running:
 
 ```bash
-touch rouge
+touch rogue
 ```
 
  To add a framework to your project, run:
 
 ```bash
-rouge add https://github.com/daltoniam/starscream.git
+rogue add https://github.com/daltoniam/starscream.git
 ```
 
 To remove a framework, is pretty much the same as adding:
 
 ```bash
-rouge remove https://github.com/daltoniam/starscream.git
+rogue remove https://github.com/daltoniam/starscream.git
 ```
 
 To install those frameworks, just run:
 
 ```bash
-rouge install
+rogue install
 ```
 
-That will install the libraries into a folder named `libs` in the root of your project (or where you created your rouge file). 
+That will install the libraries into a folder named `libs` in the root of your project (or where you created your rogue file).
 
 If you want to use a branch or tag, simply run:
 
 ```bash
-rouge add https://github.com/daltoniam/starscream.git awesome-branch
+rogue add https://github.com/daltoniam/starscream.git awesome-branch
 //notice the space between the url and branch name or tag
 ```
 
@@ -55,7 +55,7 @@ Also please note, that the library repo must include an Xcode project to build t
 The current repositories can also be listed by running:
 
 ```bash
-rouge list
+rogue list
 ```
 
 ## TODOs
@@ -66,14 +66,14 @@ rouge list
 
 ## License
 
-Rouge is licensed under the Apache v2 License.
+Rogue is licensed under the Apache v2 License.
 
 ## Contact
 
 ### Austin Cherry ###
 * https://github.com/acmacalister
 * http://twitter.com/acmacalister
-* http://austincherry.me 
+* http://austincherry.me
 
 ### Dalton Cherry
 * https://github.com/daltoniam

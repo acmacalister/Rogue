@@ -1,6 +1,6 @@
 //
 //  main.swift
-//  Rouge
+//  Rogue
 //
 //  Created by austin on 10/3/14.
 //  Copyright (c) 2014 Vluxe. All rights reserved.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-let fileName = "rouge"
+let fileName = "rogue"
 
 func printHelpMenu() {
-    println("Rouge Package Manager    - 0.0.1")
+    println("Rogue Package Manager    - 0.0.1")
     println("add url <tag/branch>     - Adds a framework to project.")
     println("remove url <tag/branch>  - Removes a framework from project.")
     println("list                     - List the current frameworks")
@@ -31,7 +31,7 @@ func readConfig() -> (text: String,error: NSError?) {
     if let conf = config {
         return (conf, nil)
     }
-    return ("", NSError(domain: "Rouge", code: -2, userInfo: [NSLocalizedDescriptionKey: "the config is blank."]))
+    return ("", NSError(domain: "rogue", code: -2, userInfo: [NSLocalizedDescriptionKey: "the config is blank."]))
 }
 
 //adds a framework to the project
