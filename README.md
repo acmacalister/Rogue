@@ -37,7 +37,9 @@ Rogue is pretty simple in how it works. First create a file name `rogue`. This c
 touch rogue
 ```
 
- To add a framework to your project, run this from Terminal:
+This creates a per project text file named rogue, not to be confused with the binary that exist in your PATH.
+
+ To add a framework to your project, run this from Terminal (in the directory that contains the rouge text file): 
 
 ```bash
 rogue add https://github.com/daltoniam/starscream.git
