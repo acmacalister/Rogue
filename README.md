@@ -11,7 +11,23 @@ Framework Manager for Swift projects in Swift. The reason we chose the name rogu
 
 ## Installation
 
-Either clone down the project and add the binary to your path or download one of the prebuilt binaries under the Github releases.
+Download the latest release from:
+https://github.com/acmacalister/Rogue/releases
+
+The file will not have execute permissions, add this by running on the release you just downloaded:
+
+```bash
+chmod +x rogue
+```
+
+Lastly copy the file into your PATH. A place that is normally in your path is `/usr/local/bin`
+
+Example:
+```bash
+mv rogue /usr/local/bin
+```
+
+That's it! Enjoy using rogue.
 
 ### Usage
 
@@ -21,13 +37,13 @@ Rogue is pretty simple in how it works. First create a file name `rogue`. This c
 touch rogue
 ```
 
- To add a framework to your project, run:
+ To add a framework to your project, run this from Terminal:
 
 ```bash
 rogue add https://github.com/daltoniam/starscream.git
 ```
 
-To remove a framework, is pretty much the same as adding:
+To remove a framework, is pretty much the same as running this from Terminal:
 
 ```bash
 rogue remove https://github.com/daltoniam/starscream.git
