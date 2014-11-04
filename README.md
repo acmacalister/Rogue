@@ -42,13 +42,13 @@ This creates a per project text file named rogue, not to be confused with the bi
  To add a framework to your project, run this from Terminal (in the directory that contains the rouge text file): 
 
 ```bash
-rogue add https://github.com/daltoniam/starscream.git
+rogue add https://github.com/daltoniam/starscream
 ```
 
 To remove a framework, is pretty much the same as running this from Terminal:
 
 ```bash
-rogue remove https://github.com/daltoniam/starscream.git
+rogue remove https://github.com/daltoniam/starscream
 ```
 
 To install those frameworks, just run:
@@ -62,7 +62,7 @@ That will install the libraries into a folder named `libs` in the root of your p
 If you want to use a branch or tag, simply run:
 
 ```bash
-rogue add https://github.com/daltoniam/starscream.git awesome-branch
+rogue add https://github.com/daltoniam/starscream awesome-branch
 //notice the space between the url and branch name or tag
 ```
 
