@@ -7,7 +7,7 @@ Framework Manager for Swift projects in Swift. The reason we chose the name rogu
 - Manage Swift frameworks in your project.
 - A simple binary you just drop in your path.
 - Only does Swift projects.
-- Still has a long way to go.
+- Very simple, doesn't get into the complexities of managing dependencies. 
 
 ## Installation
 
@@ -64,6 +64,8 @@ If you want to use a branch or tag, simply run:
 ```bash
 rogue add https://github.com/daltoniam/starscream awesome-branch
 //notice the space between the url and branch name or tag
+//Tag example:
+//rogue add https://github.com/daltoniam/starscream 0.9.0
 ```
 
 Make sure to add the `libs` folder to your `.gitignore` so you aren't checking all the repositories code into your repository.
